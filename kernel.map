@@ -1,0 +1,208 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build/controller.o
+LOAD build/defines.o
+LOAD build/font.o
+LOAD build/framebuffer_struct.o
+LOAD build/gpio.o
+LOAD build/graphics.o
+LOAD build/mailbox.o
+LOAD build/main.o
+LOAD build/string.o
+LOAD build/tiles.o
+LOAD build/timer.o
+LOAD build/uart.o
+
+.init           0x00008000        0x4
+ *(.init)
+ .init          0x00008000        0x4 build/main.o
+                0x00008000                _start
+
+.data           0x00009080      0x2d0
+ *(.data)
+ .data          0x00009080        0x0 build/controller.o
+ .data          0x00009080        0x0 build/defines.o
+ .data          0x00009080       0x30 build/font.o
+ .data          0x000090b0      0x280 build/framebuffer_struct.o
+                0x000090b0                framebuffer_info
+ .data          0x00009330        0x0 build/gpio.o
+ .data          0x00009330        0x0 build/graphics.o
+ .data          0x00009330        0x0 build/mailbox.o
+ .data          0x00009330        0x0 build/main.o
+ .data          0x00009330        0x0 build/string.o
+ .data          0x00009330        0x0 build/tiles.o
+ .data          0x00009330       0x20 build/timer.o
+ .data          0x00009350        0x0 build/uart.o
+ *.c.o(*)
+
+.igot.plt       0x00009350        0x0
+ .igot.plt      0x00000000        0x0 build/controller.o
+
+.text           0x00009350     0x11e4
+ *.c.o(.text)
+ *(.text)
+ .text          0x00009350       0xf4 build/controller.o
+                0x00009350                snes_init
+                0x00009388                snes_getstate
+                0x00009404                waitForRelease
+                0x00009424                waitForButton
+ .text          0x00009444        0x0 build/defines.o
+ .text          0x00009444      0x4f0 build/font.o
+                0x00009444                writeMsg
+                0x0000947c                writeStr
+                0x000094a4                writeNumber_double
+                0x00009500                writeStr_double
+                0x00009528                char_ascii
+ .text          0x00009934        0x0 build/framebuffer_struct.o
+ .text          0x00009934       0x94 build/gpio.o
+                0x00009934                gpio_mode
+                0x0000996c                gpio_write
+                0x00009994                gpio_read
+ .text          0x000099c8       0x84 build/graphics.o
+                0x000099c8                putPixel
+                0x000099e0                drawBrick
+ .text          0x00009a4c       0x94 build/mailbox.o
+                0x00009a4c                framebuffer_init
+ .text          0x00009ae0      0x160 build/main.o
+ .text          0x00009c40       0xd4 build/string.o
+                0x00009c40                strcmp
+                0x00009c78                strncmp
+                0x00009cc0                strcpy
+                0x00009cd4                strlen
+                0x00009cf0                strcat
+ .text          0x00009d14      0x120 build/tiles.o
+                0x00009d14                brick_tile
+ .text          0x00009e34       0xf8 build/timer.o
+                0x00009e34                st_sleep
+                0x00009e50                initSecondTimer
+                0x00009e70                timerFired
+                0x00009ea4                resetTimer
+                0x00009ec8                pauseTimer
+                0x00009ef0                unpauseTimer
+ .text          0x00009f2c      0x608 build/uart.o
+                0x00009f2c                uart_init
+                0x0000a4ac                uart_readb
+                0x0000a4c8                uart_writeb
+                0x0000a4e4                uart_print
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x0000a534        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0000a534        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0000a534        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0000a534        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x0000a534        0x0
+ .iplt          0x00000000        0x0 build/controller.o
+
+.rel.dyn        0x0000a534        0x0
+ .rel.iplt      0x00000000        0x0 build/controller.o
+
+.bss            0x0000a534        0x0
+ .bss           0x0000a534        0x0 build/controller.o
+ .bss           0x0000a534        0x0 build/defines.o
+ .bss           0x0000a534        0x0 build/font.o
+ .bss           0x0000a534        0x0 build/framebuffer_struct.o
+ .bss           0x0000a534        0x0 build/gpio.o
+ .bss           0x0000a534        0x0 build/graphics.o
+ .bss           0x0000a534        0x0 build/mailbox.o
+ .bss           0x0000a534        0x0 build/main.o
+ .bss           0x0000a534        0x0 build/string.o
+ .bss           0x0000a534        0x0 build/tiles.o
+ .bss           0x0000a534        0x0 build/timer.o
+ .bss           0x0000a534        0x0 build/uart.o
+
+.ARM.attributes
+                0x00000000       0x1f
+ .ARM.attributes
+                0x00000000       0x1f build/controller.o
+ .ARM.attributes
+                0x0000001f       0x1f build/defines.o
+ .ARM.attributes
+                0x0000003e       0x1f build/font.o
+ .ARM.attributes
+                0x0000005d       0x1f build/framebuffer_struct.o
+ .ARM.attributes
+                0x0000007c       0x1f build/gpio.o
+ .ARM.attributes
+                0x0000009b       0x1f build/graphics.o
+ .ARM.attributes
+                0x000000ba       0x1f build/mailbox.o
+ .ARM.attributes
+                0x000000d9       0x1f build/main.o
+ .ARM.attributes
+                0x000000f8       0x1f build/string.o
+ .ARM.attributes
+                0x00000117       0x1f build/tiles.o
+ .ARM.attributes
+                0x00000136       0x1f build/timer.o
+ .ARM.attributes
+                0x00000155       0x1f build/uart.o
+
+.debug_line     0x00000000      0x494
+ .debug_line    0x00000000       0x85 build/controller.o
+ .debug_line    0x00000085       0x86 build/font.o
+ .debug_line    0x0000010b       0x6c build/gpio.o
+ .debug_line    0x00000177       0x65 build/graphics.o
+ .debug_line    0x000001dc       0x68 build/mailbox.o
+ .debug_line    0x00000244       0xa4 build/main.o
+ .debug_line    0x000002e8       0x7b build/string.o
+ .debug_line    0x00000363       0x88 build/timer.o
+ .debug_line    0x000003eb       0xa9 build/uart.o
+
+.debug_info     0x00000000      0x2ca
+ .debug_info    0x00000000       0x54 build/controller.o
+ .debug_info    0x00000054       0x4e build/font.o
+ .debug_info    0x000000a2       0x4e build/gpio.o
+ .debug_info    0x000000f0       0x52 build/graphics.o
+ .debug_info    0x00000142       0x51 build/mailbox.o
+ .debug_info    0x00000193       0x4a build/main.o
+ .debug_info    0x000001dd       0x50 build/string.o
+ .debug_info    0x0000022d       0x4f build/timer.o
+ .debug_info    0x0000027c       0x4e build/uart.o
+
+.debug_abbrev   0x00000000       0xb2
+ .debug_abbrev  0x00000000       0x14 build/controller.o
+ .debug_abbrev  0x00000014       0x14 build/font.o
+ .debug_abbrev  0x00000028       0x14 build/gpio.o
+ .debug_abbrev  0x0000003c       0x14 build/graphics.o
+ .debug_abbrev  0x00000050       0x14 build/mailbox.o
+ .debug_abbrev  0x00000064       0x12 build/main.o
+ .debug_abbrev  0x00000076       0x14 build/string.o
+ .debug_abbrev  0x0000008a       0x14 build/timer.o
+ .debug_abbrev  0x0000009e       0x14 build/uart.o
+
+.debug_aranges  0x00000000      0x128
+ .debug_aranges
+                0x00000000       0x20 build/controller.o
+ .debug_aranges
+                0x00000020       0x20 build/font.o
+ .debug_aranges
+                0x00000040       0x20 build/gpio.o
+ .debug_aranges
+                0x00000060       0x20 build/graphics.o
+ .debug_aranges
+                0x00000080       0x20 build/mailbox.o
+ .debug_aranges
+                0x000000a0       0x28 build/main.o
+ .debug_aranges
+                0x000000c8       0x20 build/string.o
+ .debug_aranges
+                0x000000e8       0x20 build/timer.o
+ .debug_aranges
+                0x00000108       0x20 build/uart.o
+
+.debug_ranges   0x00000000       0x20
+ .debug_ranges  0x00000000       0x20 build/main.o
