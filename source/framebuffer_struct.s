@@ -1,5 +1,10 @@
 .globl framebuffer_info
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Include our globally defined equs
+.include "defines.s"
+
+
 .section .data
 
 .equ    FB_WIDTH,       0x00
@@ -11,10 +16,10 @@
 .align 4
 
 framebuffer_info:
-    .int    640                 @ Width             0x00
-    .int    480                 @ Height            0x04
-    .int    640                 @ Virt. Width       0x08
-    .int    480                 @ Virt. Height      0x0C
+    .int    SCREEN_WIDTH        @ Width             0x00
+    .int    SCREEN_HEIGHT       @ Height            0x04
+    .int    SCREEN_WIDTH        @ Virt. Width       0x08
+    .int    SCREEN_HEIGHT       @ Virt. Height      0x0C
     .int    0                   @ Pitch (GPU set)   0x10
     .int    8                   @ BPP               0x14
     .int    0                   @ Offset X          0x18
@@ -91,6 +96,14 @@ framebuffer_info:
     .hword  0x700a
     .hword  0x4006
     .hword  0x2803
+    
+    @ Ball 
+    .hword  0x4A69
+    .hword  0x8430
+    .hword  0x7BCF
+    .hword  0xA514
+    .hword  0xDFEB
+    .hword  0xC618
     
     
     

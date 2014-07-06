@@ -31,41 +31,28 @@ test:
     
     bl      framebuffer_init
     
+   
+    
+    mov     r0, #(WALL_LEFT_X - 1)
+    mov     r1, #(WALL_TOP_Y - 1)
+    ldr     r2, =(WALL_RIGHT_X - WALL_LEFT_X + 1) 
+    ldr     r3, =(WALL_BOTTOM_Y - WALL_TOP_Y + 1)
+    
+    mov     r4, #1
+    push    {r4}
+    bl      outlineBox
 
 
+    ldr     r0, =level_1
+    bl      loadBoard
+
+    bl      drawBoard
 
 
-    mov     r5, #0
-    mov     r4, #240
 mainLoop:                               @ The main program loop
-    
-    mov     r0, #32
-    add     r0, r4
-    mov     r1, #32
-    mov     r2, #0x00                   @ Light red tile
-    add     r2, r5
-    ldr     r3, =brick_tile
-    bl      drawBrick
 
-    mov     r0, #32
-    add     r0, r4
-    mov     r1, #44
-    mov     r2, #0x10                   @ Medium red tile
-    add     r2, r5
-    ldr     r3, =brick_tile
-    bl      drawBrick
     
-    mov     r0, #32
-    add     r0, r4
-    mov     r1, #56
-    mov     r2, #0x20                   @ Dark red tile
-    add     r2, r5
-    ldr     r3, =brick_tile
-    bl      drawBrick
-
-    subs    r4, #24
-    add     r5, #1
-    bgt     mainLoop
+    b     mainLoop
 
 
 haltLoop$:
