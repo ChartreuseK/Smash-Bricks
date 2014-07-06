@@ -1,11 +1,13 @@
 #!/usr/bin/perl
 
-#use strict;
-#use warnings;
+use strict;
+use warnings;
+
+print "Enter a 24bit color value (eg. 7fff00), program will output a 16bit hex color value\n";
 
 while(1)
 {
-    
+    print "> ";    
     my $input = <STDIN>;
     
     if($input =~ /([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])/)
