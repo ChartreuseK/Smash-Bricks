@@ -15,10 +15,35 @@
 
 .globl putPixel
 .globl drawBrick
+.globl clearBrick
+.globl drawEmptyBrick
 .globl outlineBox
 .globl drawBall
 .globl clearBall
+.globl drawCurBall
+.globl clearCurBall
 
+clearCurBall:
+    push    { lr } 
+    ldr     r3, =game_struct
+    
+    ldr     r0, [r3, #GAME_BALL_X]
+    ldr     r1, [r3, #GAME_BALL_Y]
+    ldr     r2, =ball_tile
+    bl      clearBall
+    
+    pop     { pc }
+
+drawCurBall:
+    push    { lr } 
+    ldr     r3, =game_struct
+    
+    ldr     r0, [r3, #GAME_BALL_X]
+    ldr     r1, [r3, #GAME_BALL_Y]
+    ldr     r2, =ball_tile
+    bl      drawBall
+    
+    pop     { pc }
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Draw ball
@@ -143,6 +168,44 @@ drawBrick_loop:
 
 
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Clear brick
+@  Bricks are 36px wide and 12px tall
+@  x, y
+@@@@
+clearBrick:
+    push    { r4, r5 }
+    ldr     r4, =framebuffer_info       @ Framebuffer struct
+    ldr     r4, [r4, #FB_POINTER]       @ Pointer to the frame buffer
+    
+    add     r0, r1, lsl #9              @ r0 = x + y << 9 + y << 7
+    add     r0, r1, lsl #7              @ r0 = x + (y * 640)
+                                        
+    add     r4, r0                      @ r4 is now our starting point in the framebuffer
+                                    
+
+    mov     r1, #BRICK_HEIGHT           @ 12px tall
+
+    mov     r0, #BRICK_WIDTH            @ 24px wide     
+clearBrick_loop:
+    mov     r5, #0
+    strb    r5, [r4], #1                @ Draw it to the screen
+    
+    subs    r0, #1
+    bgt     clearBrick_loop             @ While we haven't finished a line
+    
+    ldr     r0, =(640 - BRICK_WIDTH)    @ Screen width(640) - brickwidth
+    add     r4, r0                      @ Jump to the start of the next line
+    
+    mov     r0, #BRICK_WIDTH            
+    subs    r1, #1              
+    bgt     clearBrick_loop             @ While we still have lines left
+    
+    pop     { r4, r5 }
+    
+    bx      lr                          @ And we're done
+
+
 
 
 
@@ -162,6 +225,41 @@ putPixel:
     strb    r2, [r3, r0]                @ Set the pixel to the color index
 
     bx      lr
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ drawEmptyBrick
+@  x, y
+@@@@
+drawEmptyBrick:
+    ldr     r3, =framebuffer_info       @ Framebuffer struct
+    ldr     r3, [r3, #FB_POINTER]       @ Pointer to the frame buffer
+    
+    add     r0, r1, lsl #9              @ r0 = x + y << 9 + y << 7
+    add     r0, r1, lsl #7              @ r0 = x + (y * 640)
+                                        
+    add     r3, r0                      @ r3 is now our starting point in the framebuffer
+    
+    mov     r0, #BRICK_WIDTH
+    mov     r1, #BRICK_HEIGHT
+    mov     r2, #BLACK
+drawEmptyBrick_loop:
+    strb    r2, [r3], #1                @ Write out background color to screen and increment
+    subs    r0, #1
+    bgt     drawEmptyBrick_loop
+    
+    
+    ldr     r0, =(640 - BRICK_WIDTH)    @ Screen width(640) - brickwidth
+    add     r3, r0                      @ Jump down to the start of the next line
+    
+    mov     r0, #BRICK_WIDTH
+    
+    subs    r1, #1
+    bgt     drawEmptyBrick_loop
+     
+    bx      lr
+
 
 
 

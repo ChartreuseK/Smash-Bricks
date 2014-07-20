@@ -21,8 +21,15 @@ _start:
 
 main:
     @mov     sp, #0x8000
+
     bl      InstallInterrupts
-    bl      initSecondTimer             @ Set up our timer handler
+    
+    mov     r0, #16
+    mov     r1, #1
+    bl      gpio_mode
+    
+    
+                                        
 test:
 
 @@ Was used during development and handed in with assignment
@@ -30,13 +37,16 @@ test:
 @   bl      EnableJTAG
     
     bl      framebuffer_init
+    bl      uart_init
     
+    mov     r0, #'B'
+    bl      uart_writeb
    
     
-    mov     r0, #(WALL_LEFT_X - 1)
-    mov     r1, #(WALL_TOP_Y - 1)
-    ldr     r2, =(WALL_RIGHT_X - WALL_LEFT_X + 1) 
-    ldr     r3, =(WALL_BOTTOM_Y - WALL_TOP_Y + 1)
+    mov     r0, #(WALL_LEFT_X)
+    mov     r1, #(WALL_TOP_Y)
+    ldr     r2, =(WALL_RIGHT_X - WALL_LEFT_X) 
+    ldr     r3, =(WALL_BOTTOM_Y - WALL_TOP_Y)
     
     mov     r4, #1
     push    {r4}
@@ -49,9 +59,29 @@ test:
     bl      drawBoard
 
 
-mainLoop:                               @ The main program loop
 
     
+    ldr     r0, =game_struct
+    ldr     r1, =( (BOARD_X + (BOARD_WIDTH*BRICK_WIDTH)) / 2)
+    str     r1, [r0, #GAME_BALL_X]
+    ldr     r1, =( (BOARD_Y + ((BOARD_HEIGHT + 2)*BRICK_HEIGHT)))
+    str     r1, [r0, #GAME_BALL_Y]
+    
+    mov     r1, #-1
+    str     r1, [r0, #GAME_BALL_H_DIR]
+    str     r1, [r0, #GAME_BALL_V_DIR]
+    
+    mov     r1, #24
+    str     r1, [r0, #GAME_BALL_H_SPEED]
+    str     r1, [r0, #GAME_BALL_V_SPEED]
+    
+    
+    bl      initBallTimer               @ Set up our timer handler (starts off paused)
+    bl      unpauseTimer
+    
+mainLoop:                               @ The main program loop
+
+   
     b     mainLoop
 
 

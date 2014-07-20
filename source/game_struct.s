@@ -26,6 +26,29 @@ game_struct:
     @ Bricks left
     .int    0
     
+    @ Ball X        - Are we going to need mutexes? 
+    .int    0
+    @ Ball Y
+    .int    0
+    
+    @ Ball H-dir
+    .int    0
+    
+    @ Ball V-dir
+    .int    0
+    
+    @ Ball H-speed      (Smaller is faster)
+    .int    0
+    
+    @ Ball V-speed      (Smaller is faster)
+    .int    0           
+    
+    @ Ball H-count      (counting up to the speed)
+    .int    0
+    
+    @ Ball V-count
+    .int    0
+    
     @ Game board
     .skip   BOARD_HEIGHT * BOARD_WIDTH      @ Buffer for the currently loaded board
                                             @ One byte per tile

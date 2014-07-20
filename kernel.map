@@ -50,7 +50,7 @@ LOAD build/uart.o
 .igot.plt       0x00009360        0x0
  .igot.plt      0x00000000        0x0 build/controller.o
 
-.text           0x00009360     0x1764
+.text           0x00009360     0x1bb4
  *.c.o(.text)
  *(.text)
  .text          0x00009360       0xf4 build/controller.o
@@ -66,85 +66,94 @@ LOAD build/uart.o
                 0x00009510                writeStr_double
                 0x00009538                char_ascii
  .text          0x00009944        0x0 build/framebuffer_struct.o
- .text          0x00009944       0x98 build/game.o
+ .text          0x00009944      0x2c8 build/game.o
                 0x00009944                loadBoard
                 0x00009964                drawBoard
- .text          0x000099dc      0x124 build/game_struct.o
-                0x000099dc                game_struct
-                0x00009ac2                initGameStruct
- .text          0x00009b00       0x94 build/gpio.o
-                0x00009b00                gpio_mode
-                0x00009b38                gpio_write
-                0x00009b60                gpio_read
- .text          0x00009b94      0x2e4 build/graphics.o
-                0x00009b94                drawBall
-                0x00009c68                clearBall
-                0x00009d3c                drawBrick
-                0x00009da4                putPixel
-                0x00009e04                outlineBox
- .text          0x00009e78       0xd2 build/levels.o
-                0x00009e78                level_1
- *fill*         0x00009f4a        0x2 3f3f3f3f
- .text          0x00009f4c       0x94 build/mailbox.o
-                0x00009f4c                framebuffer_init
- .text          0x00009fe0      0x120 build/main.o
- .text          0x0000a100       0xd4 build/string.o
-                0x0000a100                strcmp
-                0x0000a138                strncmp
-                0x0000a180                strcpy
-                0x0000a194                strlen
-                0x0000a1b0                strcat
- .text          0x0000a1d4      0x1f0 build/tiles.o
-                0x0000a1d4                brick_tile
-                0x0000a384                ball_tile
- .text          0x0000a3c4       0xf8 build/timer.o
-                0x0000a3c4                st_sleep
-                0x0000a3e0                initSecondTimer
-                0x0000a400                timerFired
-                0x0000a434                resetTimer
-                0x0000a458                pauseTimer
-                0x0000a480                unpauseTimer
- .text          0x0000a4bc      0x608 build/uart.o
-                0x0000a4bc                uart_init
-                0x0000aa3c                uart_readb
-                0x0000aa58                uart_writeb
-                0x0000aa74                uart_print
+                0x000099e4                checkWallCollisionHoriz
+                0x00009a18                checkWallCollisionVert
+                0x00009a4c                checkCollision
+                0x00009bc8                horizBounce
+                0x00009be4                vertBounce
+ .text          0x00009c0c      0x144 build/game_struct.o
+                0x00009c0c                game_struct
+                0x00009d12                initGameStruct
+ .text          0x00009d50       0x94 build/gpio.o
+                0x00009d50                gpio_mode
+                0x00009d88                gpio_write
+                0x00009db0                gpio_read
+ .text          0x00009de4      0x3b4 build/graphics.o
+                0x00009de4                clearCurBall
+                0x00009e00                drawCurBall
+                0x00009e1c                drawBall
+                0x00009ef0                clearBall
+                0x00009fc4                drawBrick
+                0x0000a02c                clearBrick
+                0x0000a078                putPixel
+                0x0000a090                drawEmptyBrick
+                0x0000a11c                outlineBox
+ .text          0x0000a198       0xd2 build/levels.o
+                0x0000a198                level_1
+ *fill*         0x0000a26a        0x2 3f3f3f3f
+ .text          0x0000a26c       0x94 build/mailbox.o
+                0x0000a26c                framebuffer_init
+ .text          0x0000a300      0x170 build/main.o
+ .text          0x0000a470       0xd4 build/string.o
+                0x0000a470                strcmp
+                0x0000a4a8                strncmp
+                0x0000a4f0                strcpy
+                0x0000a504                strlen
+                0x0000a520                strcat
+ .text          0x0000a544      0x1f0 build/tiles.o
+                0x0000a544                brick_tile
+                0x0000a6f4                ball_tile
+ .text          0x0000a734      0x1d8 build/timer.o
+                0x0000a734                st_sleep
+                0x0000a750                initBallTimer
+                0x0000a770                timerFired
+                0x0000a884                resetTimer
+                0x0000a8a8                pauseTimer
+                0x0000a8d0                unpauseTimer
+ .text          0x0000a90c      0x608 build/uart.o
+                0x0000a90c                uart_init
+                0x0000ae8c                uart_readb
+                0x0000aea8                uart_writeb
+                0x0000aec4                uart_print
 OUTPUT(build/output.elf elf32-littlearm)
 
-.glue_7         0x0000aac4        0x0
+.glue_7         0x0000af14        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0000aac4        0x0
+.glue_7t        0x0000af14        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0000aac4        0x0
+.vfp11_veneer   0x0000af14        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0000aac4        0x0
+.v4_bx          0x0000af14        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0000aac4        0x0
+.iplt           0x0000af14        0x0
  .iplt          0x00000000        0x0 build/controller.o
 
-.rel.dyn        0x0000aac4        0x0
+.rel.dyn        0x0000af14        0x0
  .rel.iplt      0x00000000        0x0 build/controller.o
 
-.bss            0x0000aac4        0x0
- .bss           0x0000aac4        0x0 build/controller.o
- .bss           0x0000aac4        0x0 build/defines.o
- .bss           0x0000aac4        0x0 build/font.o
- .bss           0x0000aac4        0x0 build/framebuffer_struct.o
- .bss           0x0000aac4        0x0 build/game.o
- .bss           0x0000aac4        0x0 build/game_struct.o
- .bss           0x0000aac4        0x0 build/gpio.o
- .bss           0x0000aac4        0x0 build/graphics.o
- .bss           0x0000aac4        0x0 build/levels.o
- .bss           0x0000aac4        0x0 build/mailbox.o
- .bss           0x0000aac4        0x0 build/main.o
- .bss           0x0000aac4        0x0 build/string.o
- .bss           0x0000aac4        0x0 build/tiles.o
- .bss           0x0000aac4        0x0 build/timer.o
- .bss           0x0000aac4        0x0 build/uart.o
+.bss            0x0000af14        0x0
+ .bss           0x0000af14        0x0 build/controller.o
+ .bss           0x0000af14        0x0 build/defines.o
+ .bss           0x0000af14        0x0 build/font.o
+ .bss           0x0000af14        0x0 build/framebuffer_struct.o
+ .bss           0x0000af14        0x0 build/game.o
+ .bss           0x0000af14        0x0 build/game_struct.o
+ .bss           0x0000af14        0x0 build/gpio.o
+ .bss           0x0000af14        0x0 build/graphics.o
+ .bss           0x0000af14        0x0 build/levels.o
+ .bss           0x0000af14        0x0 build/mailbox.o
+ .bss           0x0000af14        0x0 build/main.o
+ .bss           0x0000af14        0x0 build/string.o
+ .bss           0x0000af14        0x0 build/tiles.o
+ .bss           0x0000af14        0x0 build/timer.o
+ .bss           0x0000af14        0x0 build/uart.o
 
 .ARM.attributes
                 0x00000000       0x1f
@@ -179,18 +188,18 @@ OUTPUT(build/output.elf elf32-littlearm)
  .ARM.attributes
                 0x000001b2       0x1f build/uart.o
 
-.debug_line     0x00000000      0x5a0
+.debug_line     0x00000000      0x6c2
  .debug_line    0x00000000       0x85 build/controller.o
  .debug_line    0x00000085       0x86 build/font.o
- .debug_line    0x0000010b       0x66 build/game.o
- .debug_line    0x00000171       0x54 build/game_struct.o
- .debug_line    0x000001c5       0x6c build/gpio.o
- .debug_line    0x00000231       0xc2 build/graphics.o
- .debug_line    0x000002f3       0x68 build/mailbox.o
- .debug_line    0x0000035b       0x99 build/main.o
- .debug_line    0x000003f4       0x7b build/string.o
- .debug_line    0x0000046f       0x88 build/timer.o
- .debug_line    0x000004f7       0xa9 build/uart.o
+ .debug_line    0x0000010b      0x104 build/game.o
+ .debug_line    0x0000020f       0x54 build/game_struct.o
+ .debug_line    0x00000263       0x6c build/gpio.o
+ .debug_line    0x000002cf       0xfc build/graphics.o
+ .debug_line    0x000003cb       0x68 build/mailbox.o
+ .debug_line    0x00000433       0xac build/main.o
+ .debug_line    0x000004df       0x7b build/string.o
+ .debug_line    0x0000055a       0xbf build/timer.o
+ .debug_line    0x00000619       0xa9 build/uart.o
 
 .debug_info     0x00000000      0x36d
  .debug_info    0x00000000       0x54 build/controller.o
