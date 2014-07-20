@@ -71,8 +71,10 @@ test:
     str     r1, [r0, #GAME_BALL_H_DIR]
     str     r1, [r0, #GAME_BALL_V_DIR]
     
-    mov     r1, #24
+    mov     r1, #32
     str     r1, [r0, #GAME_BALL_H_SPEED]
+    
+    mov     r1, #32
     str     r1, [r0, #GAME_BALL_V_SPEED]
     
     

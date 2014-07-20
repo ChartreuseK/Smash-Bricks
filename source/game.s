@@ -282,6 +282,8 @@ checkCollision_collide:
     pop     { r4, r5, r6, r7, pc}           @ Return
 
 checkCollision_invalid:
+    pop     { r4, r5, r6, r7, pc}
+
     b       checkCollision_invalid          @ We entered an invalid state, ball out of board
 
 

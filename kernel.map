@@ -66,36 +66,37 @@ LOAD build/uart.o
                 0x00009510                writeStr_double
                 0x00009538                char_ascii
  .text          0x00009944        0x0 build/framebuffer_struct.o
- .text          0x00009944      0x2c8 build/game.o
+ .text          0x00009944      0x2cc build/game.o
                 0x00009944                loadBoard
                 0x00009964                drawBoard
                 0x000099e4                checkWallCollisionHoriz
                 0x00009a18                checkWallCollisionVert
                 0x00009a4c                checkCollision
-                0x00009bc8                horizBounce
-                0x00009be4                vertBounce
- .text          0x00009c0c      0x144 build/game_struct.o
-                0x00009c0c                game_struct
-                0x00009d12                initGameStruct
- .text          0x00009d50       0x94 build/gpio.o
-                0x00009d50                gpio_mode
-                0x00009d88                gpio_write
-                0x00009db0                gpio_read
- .text          0x00009de4      0x3b4 build/graphics.o
-                0x00009de4                clearCurBall
-                0x00009e00                drawCurBall
-                0x00009e1c                drawBall
-                0x00009ef0                clearBall
-                0x00009fc4                drawBrick
-                0x0000a02c                clearBrick
-                0x0000a078                putPixel
-                0x0000a090                drawEmptyBrick
-                0x0000a11c                outlineBox
- .text          0x0000a198       0xd2 build/levels.o
-                0x0000a198                level_1
- *fill*         0x0000a26a        0x2 3f3f3f3f
- .text          0x0000a26c       0x94 build/mailbox.o
-                0x0000a26c                framebuffer_init
+                0x00009bcc                horizBounce
+                0x00009be8                vertBounce
+ .text          0x00009c10      0x144 build/game_struct.o
+                0x00009c10                game_struct
+                0x00009d16                initGameStruct
+ .text          0x00009d54       0x94 build/gpio.o
+                0x00009d54                gpio_mode
+                0x00009d8c                gpio_write
+                0x00009db4                gpio_read
+ .text          0x00009de8      0x3ac build/graphics.o
+                0x00009de8                clearCurBall
+                0x00009e04                drawCurBall
+                0x00009e20                drawBall
+                0x00009ef4                clearBall
+                0x00009fc8                drawBrick
+                0x0000a030                clearBrick
+                0x0000a07c                putPixel
+                0x0000a094                drawEmptyBrick
+                0x0000a120                outlineBox
+ .text          0x0000a194       0xd2 build/levels.o
+                0x0000a194                level_1
+ *fill*         0x0000a266        0x2 3f3f3f3f
+ .text          0x0000a268       0x94 build/mailbox.o
+                0x0000a268                framebuffer_init
+ *fill*         0x0000a2fc        0x4 3f3f3f3f
  .text          0x0000a300      0x170 build/main.o
  .text          0x0000a470       0xd4 build/string.o
                 0x0000a470                strcmp
@@ -191,12 +192,12 @@ OUTPUT(build/output.elf elf32-littlearm)
 .debug_line     0x00000000      0x6c2
  .debug_line    0x00000000       0x85 build/controller.o
  .debug_line    0x00000085       0x86 build/font.o
- .debug_line    0x0000010b      0x104 build/game.o
- .debug_line    0x0000020f       0x54 build/game_struct.o
- .debug_line    0x00000263       0x6c build/gpio.o
- .debug_line    0x000002cf       0xfc build/graphics.o
- .debug_line    0x000003cb       0x68 build/mailbox.o
- .debug_line    0x00000433       0xac build/main.o
+ .debug_line    0x0000010b      0x105 build/game.o
+ .debug_line    0x00000210       0x54 build/game_struct.o
+ .debug_line    0x00000264       0x6c build/gpio.o
+ .debug_line    0x000002d0       0xfa build/graphics.o
+ .debug_line    0x000003ca       0x68 build/mailbox.o
+ .debug_line    0x00000432       0xad build/main.o
  .debug_line    0x000004df       0x7b build/string.o
  .debug_line    0x0000055a       0xbf build/timer.o
  .debug_line    0x00000619       0xa9 build/uart.o

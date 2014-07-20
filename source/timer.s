@@ -23,7 +23,7 @@
 .equ    SYSTIMER_C3,        0X18
 
 
-.equ    TIMER_SPEED,        512
+.equ    TIMER_SPEED,        256
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

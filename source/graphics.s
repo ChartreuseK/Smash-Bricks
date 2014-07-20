@@ -331,7 +331,7 @@ outlineBox:
     
     mov     r0, r4                      @ x
     add     r1, r5, r7                  @ y + height ( -1 ?)
-    sub     r1, #1
+    
     mov     r2, r6                      @ width
     mov     r3, r8                      @ colour
     bl      horizLine                   @ horizLine(x,y+height,w,colour)
@@ -343,7 +343,7 @@ outlineBox:
     bl      vertLine
     
     add     r0, r4, r6                  @ x + width ( -1 ?)
-    sub     r0, #1                      @ -1
+    
     mov     r1, r5                      @ y 
     mov     r2, r7                      @ height
     mov     r3, r8                      @ colour
